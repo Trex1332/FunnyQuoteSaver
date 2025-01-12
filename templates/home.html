@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h1>Funny Quotes From Around the World</h1>
+    <ul>
+        {% for quotes in quote %}
+        <li>{{quotes}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

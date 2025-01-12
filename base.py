@@ -7,7 +7,7 @@ from forms import  Addquote
 
 app = Flask(__name__)
 
-app.config['SECRECT_KEY'] = 'idkwhattoputhere'
+app.config['SECRET_KEY'] = 'idkwhattoputhere'
 
 
 ###
@@ -23,7 +23,7 @@ Migrate(app,db)
 
 
 class quotes(db.Model):
-    id = db.Column(db.Integer, primay_key = True)
+    id = db.Column(db.Integer, primary_key = True)
     quote = db.Column(db.Text)
 
     def __init__(self,quote):
@@ -52,3 +52,6 @@ def add():
 
         return redirect(url_for('index'))
     return render_template('add.html',form=form)
+
+if __name__ == "__main__":
+    app.run(debug=True)
