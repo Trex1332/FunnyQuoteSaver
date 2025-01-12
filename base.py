@@ -2,6 +2,8 @@ import os
 from flask import Flask,redirect,render_template,url_for
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from forms import  Addquote
+
 
 app = Flask(__name__)
 
@@ -29,3 +31,24 @@ class quotes(db.Model):
 
     def __repr__(self):
         return self.quote
+    
+#####
+
+@app.route('/')
+def index():
+    quote = quotes.query.all()
+    return render_template("home.html", quote=quote)
+
+
+@app.route('/add',methods=['GET','POST'])
+def add():
+    form = Addquote()
+
+    if form.validate_on_submit():
+        quote = form.quote.data
+        neq = quotes(quote)
+        db.session.add(neq)
+        db.session.commit()
+
+        return redirect(url_for('index'))
+    return render_template('add.html',form=form)
